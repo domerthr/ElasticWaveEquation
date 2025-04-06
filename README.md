@@ -1,17 +1,46 @@
 # Elastic Wave Equation
 
-This project provides an mplementation of the **elastic wave equation** using space-time Galerkin finite elements such as:
+This project provides an implementation of the **elastic wave equation** using space-time Galerkin finite elements. It supports the following discretization schemes:
 
 - `cG(s)/cG(r)`
-- `cg(s)/cG(r)-cG(r)`
+- `cG(s)/cG(r)-cG(r)`
 - `cG(s)/dG(r)`
 
-The goal is, to offer these three schemes and the implementation of initial and final time conditions for the velocity. 
+The goal is to provide these three methods and include support for initial and final time conditions for the velocity.
 
 ---
 
-## How to install
-You you need to install deal.II by following the instructions on their [site](https://dealii.org/current/readme.html). You also need to install the extension ideal.II, which you can install [here]([https://dealii.org/current/readme.html](https://github.com/jpthiele/idealii/blob/main/Readme.md))
+## How to Install
 
+### 1. Install C++ Dependencies
+
+To run the simulation, you need:
+
+- **deal.II**  
+  Installation instructions: [https://dealii.org/current/readme.html](https://dealii.org/current/readme.html)
+
+- **ideal.II**  
+  GitHub repository: [https://github.com/jpthiele/idealii](https://github.com/jpthiele/idealii)
+
+### 2. Set Up Python Environment for Visualization
+
+Python is used to visualize simulation results. You can install all necessary packages using the provided `environment.yml` file.
+
+#### Create the Conda environment
+
+```bash
+conda env create -f environment.yml
+```
 ---
+## How to Use
 
+### 1. Activate the Conda environment
+
+```bash
+conda activate elastic_wave
+```
+### 2. Clone and build the repository
+
+```bash
+git clone https://github.com/yourusername/elastic-wave-equation.git
+```
