@@ -1,6 +1,7 @@
 .vscode
 .venv
 build
+output/**/cycle=*/
 *.svg
 *.html
 *.pdf
