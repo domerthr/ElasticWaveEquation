@@ -1,3 +1,9 @@
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://instatdealii.github.io/idealii/dev)
+
+Build status of the library against official deal.II docker images:
+![deal.II v9.6.0](https://github.com/instatdealii/idealii/actions/workflows/dealii960.yml/badge.svg)
+
+
 # Elastic Wave Equation
 
 This project provides an implementation of the **elastic wave equation** using space-time Galerkin finite elements. It supports the following discretization schemes:
