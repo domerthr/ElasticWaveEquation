@@ -5,3 +5,5 @@ build
 *.html
 *.pdf
 *.json
+*.txt
+*.vtk
