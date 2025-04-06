@@ -74,6 +74,17 @@ conda activate elastic_wave
 git clone https://github.com/domerthr/ElasticWaveEquation.git
 cmake -S. -Bbuild -DIDEAL_II_DIR=<path_to_install_idealii_in>
 ```
+
+### 4. Create output folder
+```bash
+for i in {1..4}; do
+  mkdir -p "output/cG/example-${i}/final_condition=0"
+  mkdir -p "output/dG/example-${i}/final_condition=0"
+  mkdir -p "output/cG-cG/example-${i}/final_condition=0"
+  mkdir -p "output/cG-cG/example-${i}/final_condition=1"
+done
+```
+
 ### 3. Run a simulation
 ```bash
 cd build
