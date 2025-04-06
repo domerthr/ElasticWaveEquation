@@ -1,5 +1,0 @@
-pyvista
-numpy
-scipy
-matplotlib
-plotly
