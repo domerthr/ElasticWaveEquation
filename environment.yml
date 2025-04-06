@@ -1,0 +1,12 @@
+name: elastic_wave
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy
+  - matplotlib
+  - pyvista
+  - pip
+  - pip:
+      - vtk  # falls nicht automatisch durch pyvista abgedeckt
