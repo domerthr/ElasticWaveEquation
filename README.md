@@ -26,7 +26,7 @@ To run the simulation, you need:
   Installation instructions: [https://dealii.org/current/readme.html](https://dealii.org/current/readme.html)
 
 - **ideal.II**  
-  GitHub repository: [https://github.com/jpthiele/idealii](https://github.com/jpthiele/idealii)
+  GitHub repository: [https://github.com/instatdealii/idealii](https://github.com/instatdealii/idealii)
 
   For the installation of `ideal.II`, make sure to include the following adjustments:
 
