@@ -10,5 +10,3 @@ dependencies:
   - scipy
   - plotly
   - pip
-  - pip:
-      - vtk  # falls nicht automatisch durch pyvista abgedeckt
