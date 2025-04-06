@@ -28,7 +28,7 @@ subsection Time mesh Specification
 
   # max refinments
   set refine time             = false
-  set max refinements time    = 8
+  set max refinements time    = 3
 
 end
 
