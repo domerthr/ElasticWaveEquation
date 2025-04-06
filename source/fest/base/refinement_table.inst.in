@@ -1,0 +1,22 @@
+#ifndef __refinement_table_inst_in
+#define __refinement_table_inst_in
+
+// PROJECT includes
+
+// DEAL.II includes
+
+// C++ includes
+
+
+namespace fest {
+
+template void RefinementTable::add_value(const std::string &column, const unsigned int value);
+template void RefinementTable::add_value(const std::string &column, const double value);
+template void RefinementTable::add_value(const std::string &column, const int value);
+
+
+
+}
+
+
+#endif

@@ -1,0 +1,14 @@
+#ifndef __SpaceTime_quadrature_lib_inst_in
+#define __SpaceTime_quadrature_lib_inst_in
+
+
+namespace fest {
+
+template class Quadrature<1>;
+template class Quadrature<2>;
+template class Quadrature<3>;
+
+
+} // namespaces
+
+#endif

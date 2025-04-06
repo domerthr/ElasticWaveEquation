@@ -1,0 +1,23 @@
+#ifndef __SpaceTime_fe_value_inst_in
+#define __SpaceTime_fe_value_inst_in
+
+namespace fest {
+namespace cgcg {
+
+template class FEValues<1>;
+template class FEValues<2>;
+template class FEValues<3>;
+} // namespace cgcg
+
+namespace cg {
+
+template class FEValues<1>;
+template class FEValues<2>;
+template class FEValues<3>;
+} // namespace cg
+
+
+
+} // namespace fest
+
+#endif

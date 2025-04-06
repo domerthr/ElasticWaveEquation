@@ -1,0 +1,15 @@
+#ifndef __SpaceTimeTria_inst_in
+#define __SpaceTimeTria_inst_in
+
+namespace fest {
+namespace cgcg {
+
+template class Triangulation<1>;
+template class Triangulation<2>;
+template class Triangulation<3>;
+
+
+}
+
+}
+#endif

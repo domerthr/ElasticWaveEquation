@@ -1,0 +1,9 @@
+#ifndef __Force_Example4_inst_in
+#define __Force_Example4_inst_in
+
+namespace wave {
+template class ForceExample4<1>;
+template class ForceExample4<2>;
+}
+
+#endif

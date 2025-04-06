@@ -1,0 +1,11 @@
+#ifndef __BoundaryValue_Example4_inst_in
+#define __BoundaryValue_Example4_inst_in
+
+namespace wave {
+
+template class BoundaryValueExample4<1>;
+template class BoundaryValueExample4<2>;
+
+}
+
+#endif

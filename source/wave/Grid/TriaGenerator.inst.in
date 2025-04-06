@@ -1,0 +1,14 @@
+#ifndef __TriaGenerator_inst_in
+#define __TriaGenerator_inst_in
+
+
+namespace wave {
+namespace grid {
+
+
+template class TriaGenerator<1>;
+template class TriaGenerator<2>;
+   
+}}
+
+#endif

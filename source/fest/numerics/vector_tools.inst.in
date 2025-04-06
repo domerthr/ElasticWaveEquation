@@ -1,0 +1,113 @@
+#ifndef __vector_tools_inst_in
+#define __vector_tools_inst_in
+
+namespace fest {
+namespace cgcg {
+namespace VectorTools {
+
+
+template void interpolate_boundary_values(fest::cgcg::DoFHandler<1> &dof_handler,
+                                          const dealii::types::boundary_id boundary_component,
+                                          dealii::Function<1, double> &boundary_function,
+                                          std::shared_ptr< dealii::AffineConstraints<double> > spacetime_constraints,
+                                          const dealii::ComponentMask &component_mask = dealii::ComponentMask());
+
+template void interpolate_boundary_values(dealii::IndexSet space_relevant_dofs,
+                                          fest::cgcg::DoFHandler<1> &dof_handler,
+                                          const dealii::types::boundary_id boundary_component,
+                                          dealii::Function<1, double> &boundary_function,
+                                          std::shared_ptr<dealii::AffineConstraints<double>> spacetime_constraints,
+                                          const dealii::ComponentMask &component_mask = dealii::ComponentMask());
+
+template double calculate_L2L2_squared_error<1>(fest::cgcg::DoFHandler<1> &dof_handler,
+                                                dealii::Vector<double> &space_time_vector,
+                                                dealii::Function<1, double> &exact_solution,
+                                                fest::Quadrature<1> &quad);
+
+template void interpolate_boundary_values(fest::cgcg::DoFHandler<2> &dof_handler,
+                                          const dealii::types::boundary_id boundary_component,
+                                          dealii::Function<2, double> &boundary_function,
+                                          std::shared_ptr< dealii::AffineConstraints<double> > spacetime_constraints,
+                                          const dealii::ComponentMask &component_mask = dealii::ComponentMask());
+
+template void interpolate_boundary_values(dealii::IndexSet space_relevant_dofs,
+                                          fest::cgcg::DoFHandler<2> &dof_handler,
+                                          const dealii::types::boundary_id boundary_component,
+                                          dealii::Function<2, double> &boundary_function,
+                                          std::shared_ptr<dealii::AffineConstraints<double>> spacetime_constraints,
+                                          const dealii::ComponentMask &component_mask = dealii::ComponentMask());
+
+template double calculate_L2L2_squared_error<2>(fest::cgcg::DoFHandler<2> &dof_handler,
+                                                dealii::Vector<double> &space_time_vector,
+                                                dealii::Function<2, double> &exact_solution,
+                                                fest::Quadrature<2> &quad);
+
+
+template void interpolate_boundary_values(fest::cgcg::DoFHandler<3> &dof_handler,
+                                          const dealii::types::boundary_id boundary_component,
+                                          dealii::Function<3, double> &boundary_function,
+                                          std::shared_ptr< dealii::AffineConstraints<double> > spacetime_constraints,
+                                          const dealii::ComponentMask &component_mask = dealii::ComponentMask());
+
+template void interpolate_boundary_values(dealii::IndexSet space_relevant_dofs,
+                                          fest::cgcg::DoFHandler<3> &dof_handler,
+                                          const dealii::types::boundary_id boundary_component,
+                                          dealii::Function<3, double> &boundary_function,
+                                          std::shared_ptr<dealii::AffineConstraints<double>> spacetime_constraints,
+                                          const dealii::ComponentMask &component_mask = dealii::ComponentMask());
+
+template double calculate_L2L2_squared_error<3>(fest::cgcg::DoFHandler<3> &dof_handler,
+                                                dealii::Vector<double> &space_time_vector,
+                                                dealii::Function<3, double> &exact_solution,
+                                                fest::Quadrature<3> &quad);
+
+
+} // VectorTools
+} // cgcg
+namespace cg {
+namespace VectorTools {
+
+template void interpolate_boundary_values(fest::cg::slab::DoFHandler<1> &dof_handler,
+                                          const dealii::types::boundary_id boundary_component,
+                                          dealii::Function<1, double> &boundary_function,
+                                          std::shared_ptr< dealii::AffineConstraints<double> > spacetime_constraints,
+                                          const dealii::ComponentMask &component_mask = dealii::ComponentMask());
+
+
+template double calculate_L2L2_squared_error_on_slab<1>(fest::cg::slab::DoFHandler<1> &dof_handler,
+                                                        dealii::Vector<double> &space_time_vector,
+                                                        dealii::Function<1, double> &exact_solution,
+                                                        idealii::spacetime::Quadrature<1> &quad);
+
+template void interpolate_boundary_values(fest::cg::slab::DoFHandler<2> &dof_handler,
+                                          const dealii::types::boundary_id boundary_component,
+                                          dealii::Function<2, double> &boundary_function,
+                                          std::shared_ptr< dealii::AffineConstraints<double> > spacetime_constraints,
+                                          const dealii::ComponentMask &component_mask = dealii::ComponentMask());
+
+
+template double calculate_L2L2_squared_error_on_slab<2>(fest::cg::slab::DoFHandler<2> &dof_handler,
+                                                        dealii::Vector<double> &space_time_vector,
+                                                        dealii::Function<2, double> &exact_solution,
+                                                        idealii::spacetime::Quadrature<2> &quad);
+
+
+template void interpolate_boundary_values(fest::cg::slab::DoFHandler<3> &dof_handler,
+                                          const dealii::types::boundary_id boundary_component,
+                                          dealii::Function<3, double> &boundary_function,
+                                          std::shared_ptr< dealii::AffineConstraints<double> > spacetime_constraints,
+                                          const dealii::ComponentMask &component_mask = dealii::ComponentMask());
+
+
+template double calculate_L2L2_squared_error_on_slab<3>(fest::cg::slab::DoFHandler<3> &dof_handler,
+                                                        dealii::Vector<double> &space_time_vector,
+                                                        dealii::Function<3, double> &exact_solution,
+                                                        idealii::spacetime::Quadrature<3> &quad);
+
+
+} // namespace VectorTools
+} // namespace cg
+
+} // namespace fest
+
+#endif

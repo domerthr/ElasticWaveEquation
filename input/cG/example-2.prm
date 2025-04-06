@@ -1,0 +1,44 @@
+# Listing of Parameters
+# --------------------------------------------------------------------
+
+# Example
+set example   = 2
+set dim       = 1
+
+set r = 1
+set s = 1
+
+subsection Space mesh Specification
+  ####################################################################
+  # global refinement of the intial spartial mesh
+  set global refinement space = 9
+  set refine space            = false
+
+end
+
+subsection Time mesh Specification
+  ####################################################################
+  # Time Interval
+  set initial time            = 0.0
+  set final time              = 2.0
+  set time step               = 8
+
+  # max refinments
+  set refine time             = true
+  set max refinements time    = 7
+
+end
+
+
+subsection Parameter Specification
+  ####################################################################
+  # Lamé Coefficient μ
+  set mu    = 0.5
+
+  # Poisson Ratio ν
+  set nu    = 0.
+
+  # Density
+  set rho   = 1.0
+
+end

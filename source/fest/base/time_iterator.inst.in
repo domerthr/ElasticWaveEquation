@@ -1,0 +1,11 @@
+#ifndef __time_iterator_inst_in
+#define __time_iterator_inst_in
+
+namespace fest::cg
+{
+template class TimeIteratorCollection<1>;
+template class TimeIteratorCollection<2>;
+template class TimeIteratorCollection<3>;
+} // namespace fest::cg
+
+#endif

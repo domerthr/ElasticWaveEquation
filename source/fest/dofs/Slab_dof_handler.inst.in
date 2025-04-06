@@ -1,0 +1,12 @@
+#ifndef __Slab_dof_handler_inst_in
+#define __Slab_dof_handler_inst_in
+
+namespace fest::cg::slab {
+
+template class DoFHandler<1>;
+template class DoFHandler<2>;
+template class DoFHandler<3>;
+
+
+}
+#endif

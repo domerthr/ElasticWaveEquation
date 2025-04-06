@@ -1,0 +1,8 @@
+#ifndef __ElasticWave_cG_inst_in
+#define __ElasticWave_cG_inst_in
+
+template class ElasticWave_cG<1>;
+template class ElasticWave_cG<2>;
+
+
+#endif

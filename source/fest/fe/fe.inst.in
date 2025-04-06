@@ -1,0 +1,20 @@
+#ifndef __fe_inst_in
+#define __fe_inst_in
+
+namespace fest {
+namespace cgcg {
+template class FiniteElement<1>;
+template class FiniteElement<2>;
+template class FiniteElement<3>;
+
+}
+
+namespace cg {
+template class FiniteElement<1>;
+template class FiniteElement<2>;
+template class FiniteElement<3>;
+    
+}
+}
+
+#endif

@@ -1,0 +1,10 @@
+#ifndef __FinalValue_Selector_inst_in
+#define __FinalVlaue_Selector_inst_in
+
+namespace wave {
+namespace final_value {
+template class Selector<1>;
+template class Selector<2>;
+}
+}
+#endif

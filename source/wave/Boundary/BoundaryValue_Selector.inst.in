@@ -1,0 +1,9 @@
+#ifndef __BoundaryValues_Selector_inst_in
+#define __BoundaryValues_Selector_inst_in
+
+namespace wave {
+namespace boundary_value {
+template class Selector<1>;
+template class Selector<2>;
+}}
+#endif

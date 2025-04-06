@@ -1,0 +1,14 @@
+#ifndef __quadrature_lib_inst_in
+#define __quadrature_lib_inst_in
+
+
+namespace fest {
+
+template class QGauss<1>;
+template class QGauss<2>;
+template class QGauss<3>;
+
+
+} // namespaces
+
+#endif

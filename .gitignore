@@ -1,0 +1,7 @@
+.vscode
+.venv
+build
+*.svg
+*.html
+*.pdf
+*.json

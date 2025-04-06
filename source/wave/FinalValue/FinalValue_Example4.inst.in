@@ -1,0 +1,8 @@
+#ifndef __FinalValue_Example4_inst_in
+#define __FinalValue_Example4_inst_in
+
+namespace wave {
+template class FinalValueExample4<1>;
+template class FinalValueExample4<2>;
+}
+#endif

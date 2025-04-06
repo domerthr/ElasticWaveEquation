@@ -1,0 +1,9 @@
+#ifndef __InitialValues_Selector_inst_in
+#define __InitialValues_Selector_inst_in
+
+namespace wave {
+namespace initial_value {
+template class Selector<1>;
+template class Selector<2>;
+}}
+#endif

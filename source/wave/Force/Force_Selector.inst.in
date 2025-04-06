@@ -1,0 +1,9 @@
+#ifndef __Force_Selector_inst_in
+#define __Force_Selector_inst_in
+
+namespace wave {
+namespace force {
+template class Selector<1>;
+template class Selector<2>;
+}}
+#endif

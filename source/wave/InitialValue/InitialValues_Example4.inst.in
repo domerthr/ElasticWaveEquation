@@ -1,0 +1,9 @@
+#ifndef __InitialValues_Example4_inst_in
+#define __InitialValues_Example4_inst_in
+
+namespace wave {
+template class InitialValueExample4<1>;
+template class InitialValueExample4<2>;
+}
+
+#endif

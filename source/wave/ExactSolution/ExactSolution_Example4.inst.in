@@ -1,0 +1,11 @@
+#ifndef __ExactSolution_Example4_inst_in
+#define __ExactSolution_Example4_inst_in
+
+namespace wave {
+
+template class ExactSolutionExample4<1>;
+template class ExactSolutionExample4<2>;
+
+}
+
+#endif
