@@ -433,7 +433,7 @@ void ElasticWave_cGcG<dim>::process_solution(unsigned int cycle) {
 
 
     fest::QGauss<dim> quad(fe.spatial()->degree + 2, fe.temporal()->degree + 2);
-    L2_error += fest::cgcg::VectorTools::calculate_L2L2_squared_error<dim>(dof_handler, solution, *function.exact_solution, quad);
+    L2_error = fest::cgcg::VectorTools::calculate_L2L2_squared_error<dim>(dof_handler, solution, *function.exact_solution, quad);
 
 
     
