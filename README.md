@@ -1,6 +1,6 @@
 # Elastic Wave Equation
 
-This project provides an implementation of the **elastic wave equation** using space-time Galerkin finite elements. It supports the following discretization schemes:
+This project is part of my master's thesis and provides an implementation of the **elastic wave equation** using space-time Galerkin finite elements using [deal.II](https://dealii.org/). It supports the following discretization schemes:
 
 - `cG(s)/cG(r)`
 - `cG(s)/cG(r)-cG(r)`
