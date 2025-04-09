@@ -365,17 +365,7 @@ void ElasticWave_cGcG<dim>::solve() {
     dealii::SparseDirectUMFPACK solver;
     solver.factorize(system_matrix);
     solver.vmult(solution, system_rhs);
-    // dealii::SolverControl solver_control(10000, 1e-6, log_result=false);
-    // //SolverFGMRES<BlockVector<double>> solver(solver_control);
-    // //SolverGMRES<BlockVector<double>> solver(solver_control);
-    // dealii::SolverBicgstab<dealii::Vector<double>> solver(solver_control);
-
-    // dealii::PreconditionJacobi<dealii::SparseMatrix<double>> preconditioner;
-    // preconditioner.initialize(system_matrix);
-
-    // solver.solve(system_matrix, solution, system_rhs, preconditioner);
-
-
+ 
     constraints->distribute(solution);
 
 }
