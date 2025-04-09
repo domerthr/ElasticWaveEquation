@@ -263,12 +263,12 @@ void ElasticWave_dG<dim>::assemble_system_on_slab() {
 
 
     // reset slab system matrix and right hand side
-    slab_system_matrix = 0;
-    slab_system_rhs = 0;
+    // slab_system_matrix = 0;
+    // slab_system_rhs = 0;
 
     // space - time quadratur and FEValues
-    idealii::spacetime::QGauss<dim> quad(fe.spatial()->degree + 2, 
-                                         fe.temporal()->degree + 2);
+    idealii::spacetime::QGauss<dim> quad(fe.spatial()->degree + 3, 
+                                         fe.temporal()->degree + 3);
     idealii::spacetime::FEValues<dim> fe_values(fe, quad,
                                                 dealii::update_values | dealii::update_gradients | 
                                                 dealii::update_quadrature_points | dealii::update_JxW_values);
@@ -298,7 +298,7 @@ void ElasticWave_dG<dim>::assemble_system_on_slab() {
     double lame_coefficient_lambda = (2 * parameter_set->poisson_ratio_nu * parameter_set->lame_coefficient_mu) / (1.0 - 2 * parameter_set->poisson_ratio_nu);
     
     dealii::SymmetricTensor<2, dim> identity = dealii::unit_symmetric_tensor<dim, double>();
-
+  
     // First iterate over active spatial elements
     for (const auto &space_cell : slab_it.dof->spatial()->active_cell_iterators()) {
 
@@ -313,8 +313,7 @@ void ElasticWave_dG<dim>::assemble_system_on_slab() {
         // get local contribution of the slab_initial_vlaue vector
         // displacement
         std::vector<dealii::Tensor<1, dim>> initial_value_u(fe_values.spatial()->n_quadrature_points);
-        fe_values.spatial()->operator[](displacement).get_function_values(slab_initial_value, initial_value_u);    
-
+        fe_values.spatial()->operator[](displacement).get_function_values(slab_initial_value, initial_value_u); 
        
         // velocity
         std::vector<dealii::Tensor<1, dim>> initial_value_v(fe_values.spatial()->n_quadrature_points);
@@ -344,33 +343,35 @@ void ElasticWave_dG<dim>::assemble_system_on_slab() {
                 for (unsigned int i = 0; i < dofs_per_spacetime_cell; ++i) {
 
                     local_rhs(i + n * dofs_per_spacetime_cell) += 
-                        (function.rhs_function->value(x_q) *                                // f(t_qq, x_q)
-                         fe_values.vector_value(displacement, i, q) *                       // φ^u_{i_time, i_space}(t_qq, x_q)
+                        (fe_values.vector_value(displacement, i, q) *                       // φ^u_{i_time, i_space}(t_qq, x_q)
+                         function.rhs_function->value(x_q) *                                // f(t_qq, x_q)
                          fe_values.JxW(q));                                                 // dx dt
 
 
                     for (unsigned int j = 0; j < dofs_per_spacetime_cell; ++j) {
 
-                        local_matrix(j + n * dofs_per_spacetime_cell,
-                                     i + n * dofs_per_spacetime_cell) += 
+                        local_matrix(i + n * dofs_per_spacetime_cell,
+                                     j + n * dofs_per_spacetime_cell) += 
                             
                              (parameter_set->rho *                                          // ρ
-                              fe_values.vector_dt(velocity, i, q) *                         // ∂_t φ^v_{i_time, i_space}(t_qq, x_q)
-                              fe_values.vector_value(displacement, j, q)                    // φ^u_{j_time, j_space}(t_qq, x_q)
+                              fe_values.vector_value(displacement, i, q) *                  // φ^u_{j_time, j_space}(t_qq, x_q)
+                              fe_values.vector_dt(velocity, j, q)                           // ∂_t φ^v_{i_time, i_space}(t_qq, x_q)
 
 
-                            + dealii::scalar_product(2 * parameter_set->lame_coefficient_mu *   // 2 * μ
-                              get_strain(fe_values.vector_space_grad(displacement, i, q)),      // 1/2 * (∇_x φ^u_{j_time, j_space}(t_qq, x_q) + ∇_x^T φ^u_{j_time, j_space}(t_qq, x_q))
-                              fe_values.vector_space_grad(displacement, j, q))                  // ∇_x φ^u_{i_time, i_space}(t_qq, x_q)
+                            + 2 * parameter_set->lame_coefficient_mu *                          // 2 * μ
+                              dealii::scalar_product(
+                              fe_values.vector_space_grad(displacement, i, q),                  // ∇_x φ^u_{i_time, i_space}(t_qq, x_q)
+                              get_strain(fe_values.vector_space_grad(displacement, j, q)))      // 1/2 * (∇_x φ^u_{j_time, j_space}(t_qq, x_q) + ∇_x^T φ^u_{j_time, j_space}(t_qq, x_q))
                                  
                                 
-                            + dealii::scalar_product(lame_coefficient_lambda *                                          // λ
-                              dealii::trace(get_strain(fe_values.vector_space_grad(displacement, i, q))) * identity,    // tr(1/2 * (∇_x φ^u_{j_time, j_space}(t_qq, x_q) + ∇_x^T φ^u_{j_time, j_space}(t_qq, x_q)))
-                              fe_values.vector_space_grad(displacement, j, q))                                          // ∇_x φ^u_{i_time, i_space}(t_qq, x_q)
+                            + lame_coefficient_lambda *                                          // λ
+                              dealii::scalar_product(
+                              fe_values.vector_space_grad(displacement, i, q),                                          // ∇_x φ^u_{i_time, i_space}(t_qq, x_q)
+                              dealii::trace(get_strain(fe_values.vector_space_grad(displacement, j, q))) * identity)    // tr(1/2 * (∇_x φ^u_{j_time, j_space}(t_qq, x_q) + ∇_x^T φ^u_{j_time, j_space}(t_qq, x_q)))
                                                            
                                                           
-                            + fe_values.vector_dt(displacement, i, q) *                     // ∂_t φ^u_{i_time, i_space}(t_qq, x_q)                   
-                              fe_values.vector_value(velocity, j, q)                        // φ^v_{j_time, j_space}(t_qq, x_q)
+                            + fe_values.vector_value(velocity, i, q) *                      // φ^v_{j_time, j_space}(t_qq, x_q)
+                              fe_values.vector_dt(displacement, j, q)                       // ∂_t φ^u_{i_time, i_space}(t_qq, x_q)
 
 
                             - fe_values.vector_value(velocity, i, q) *                      // φ^v_{i_time, i_space}(t_qq, x_q)
@@ -390,28 +391,27 @@ void ElasticWave_dG<dim>::assemble_system_on_slab() {
                 for (unsigned int q = 0; q < n_quad_space; ++q) {
                     for (unsigned int i = 0; i < dofs_per_spacetime_cell; ++i) {
                         for (unsigned int j = 0; j < dofs_per_spacetime_cell; ++j) {
-                            local_matrix(j + n * dofs_per_spacetime_cell,
-                                        i + n * dofs_per_spacetime_cell) += 
+                            local_matrix(i + n * dofs_per_spacetime_cell,
+                                        j + n * dofs_per_spacetime_cell) += 
                                 
-                                  (fe_jump_values.vector_value_plus(displacement, i, q) *       // φ^{u,+}_{i_time, i_space}(t_qq^+, x_q)
-                                   fe_jump_values.vector_value_plus(velocity, j, q)             // φ^{v,+}_{j_time, j_space}(t_qq^+, x_q)
+                                  (fe_jump_values.vector_value_plus(velocity, i, q) *           // φ^{v,+}_{j_time, j_space}(t_qq^+, x_q)
+                                   fe_jump_values.vector_value_plus(displacement, j, q)         // φ^{u,+}_{i_time, i_space}(t_qq^+, x_q)
 
-                                + fe_jump_values.vector_value_plus(velocity, i, q) *            // φ^{u,+}_{i_time, i_space}(t_qq^+, x_q)
-                                  fe_jump_values.vector_value_plus(displacement, j, q))         // φ^{v,+}_{j_time, j_space}(t_qq^+, x_q)
+                                + fe_jump_values.vector_value_plus(displacement, i, q) *        // φ^{v,+}_{j_time, j_space}(t_qq^+, x_q)
+                                  fe_jump_values.vector_value_plus(velocity, j, q))             // φ^{u,+}_{i_time, i_space}(t_qq^+, x_q)
                                 
                                 * fe_jump_values.JxW(q);                                        // dx 
 
                             
                             if (n > 0) {
-
-                                local_matrix(j + n * dofs_per_spacetime_cell,
-                                        i + (n - 1) * dofs_per_spacetime_cell) -= 
+                                local_matrix(i + n * dofs_per_spacetime_cell,
+                                        j + (n - 1) * dofs_per_spacetime_cell) -= 
                                 
-                                  (fe_jump_values.vector_value_minus(displacement, i, q) *      // φ^{u,-}_{i_time, i_space}(t_qq^-, x_q)
-                                  fe_jump_values.vector_value_plus(velocity, j, q)              // φ^{v,+}_{j_time, j_space}(t_qq^+, x_q)
+                                  (fe_jump_values.vector_value_plus(velocity, i, q) *           // φ^{v,+}_{j_time, j_space}(t_qq^+, x_q)
+                                   fe_jump_values.vector_value_minus(displacement, j, q)        // φ^{u,-}_{i_time, i_space}(t_qq^-, x_q)
 
-                                + fe_jump_values.vector_value_minus(velocity, i, q) *           // φ^{v,-}_{i_time, i_space}(t_qq^-, x_q)
-                                  fe_jump_values.vector_value_plus(displacement, j, q))         // φ^{u,+}_{j_time, j_space}(t_qq^+, x_q)
+                                + fe_jump_values.vector_value_plus(displacement, i, q) *        // φ^{u,+}_{j_time, j_space}(t_qq^+, x_q)
+                                  fe_jump_values.vector_value_minus(velocity, j, q))            // φ^{v,-}_{i_time, i_space}(t_qq^-, x_q)
                                 
                                 * fe_jump_values.JxW(q);                                        // dx 
                             }
@@ -419,12 +419,12 @@ void ElasticWave_dG<dim>::assemble_system_on_slab() {
 
                         if (n == 0) {
                             local_rhs(i) += 
-                                  (initial_value_u[q] *                                         // u_0(x_q)
-                                  fe_jump_values.vector_value_plus(velocity,i, q)               // φ^{v,+}_{i_time, i_space}(0^+, x_q)
+                                  (fe_jump_values.vector_value_plus(velocity,i, q) *             // φ^{v,+}_{i_time, i_space}(0^+, x_q)
+                                   initial_value_u[q]                                            // u_0(x_q)
                                   
 
-                                + initial_value_v[q] *                                          // v_0(x_q)
-                                  fe_jump_values.vector_value_plus(displacement,i, q))          // φ^{u,+}_{i_time, i_space}(0^+, x_q)
+                                + fe_jump_values.vector_value_plus(displacement,i, q) *         // φ^{u,+}_{i_time, i_space}(0^+, x_q)
+                                  initial_value_v[q])                                           // v_0(x_q)
                                 
                                 * fe_jump_values.JxW(q);                                        // dx
                         }
