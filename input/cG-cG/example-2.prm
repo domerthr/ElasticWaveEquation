@@ -14,8 +14,8 @@ set s = 1
 subsection Space mesh Specification
   ####################################################################
   # global refinement of the intial spartial mesh
-  set global refinement space = 6
-  set refine space            = false
+  set global refinement space = 1
+  set refine space            = true
 
 end
 
@@ -23,12 +23,12 @@ subsection Time mesh Specification
   ####################################################################
   # Time Interval
   set initial time            = 0.0
-  set final time              = 2.0
-  set global refinement time  = 1
+  set final time              = 2.3
+  set global refinement time  = 6
 
   # max refinments
-  set refine time             = true
-  set max refinements time    = 8
+  set refine time             = false
+  set max refinements time    = 9
 
 end
 
